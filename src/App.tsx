@@ -1,68 +1,41 @@
-import * as React from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react'
+import './App.css'
+import Clock from './Clock'
+import React from 'react';
 
-import Clock from "./Clock";
+function App() {
+  const [second, setSecond] = useState(10);
+  const [minute, setMinute] = useState(2);
+  const [hour, setHours] = useState(0);
 
-type Props = {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const time = new Date();
+      setSecond(time.getSeconds());
+      setMinute(time.getMinutes());
+      setHours(time.getHours());
+      // console.log(`From App: ${second}:${minute}:${hour}`, time);
+    }, 1000);
 
-};
+    return () => {
+      clearInterval(interval);
+    };
+  }, [second, minute, hour]);
 
-type AppState = {
-    now: Date;
-    secs: number;
+  return (
+    <>
+      <div className="clock-container">
+        {Array.from({ length: 20 * 8 }).map((_, i) => (
+          <Clock
+            key={i}
+            second={second}
+            minute={minute}
+            hour={hour}
+          />
+        ))}
+      </div>
+    </>
+  )
 }
 
-const Layout = styled.div`
-    display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr) ) ;
-	grid-template-rows: repeat(5, 1fr);
-	grid-gap: 1em 1em;
-	grid-auto-flow: row;
-`;
-
-class App extends React.Component<{}, AppState> {
-    state: AppState = { now: new Date(), secs: 0 };
-    timerID: NodeJS.Timer;
-
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            now: new Date(),
-            secs: new Date().getSeconds() + 1
-        };
-    }
-
-    componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-
-    tick() {
-        this.setState((state) => ({
-            now: new Date(),
-            secs: state.secs + 1
-        }));
-    }
-
-    render() {
-        const getClocks = () => {
-            let clocks = [];
-            for (let i = 0; i <= 164; i++) {
-              clocks.push(<Clock {...this.state} key={i} />);
-            }
-            return clocks;
-        };
-
-        return (
-            <Layout>
-                {/* <h1>Hello world 2!</h1> */}
-                {getClocks()}
-            </Layout>
-        );
-    }
-}
-
-export default App;
+export default App

@@ -1,30 +1,29 @@
 {
-  "name": "soft-clock-clock",
-  "source": "src/index.html",
-  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "name": "clockclock",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build src/index.tsx",
-    "test": "jest",
-    "lint": "eslint",
-    "check": "tsc --noEmit",
-    "ci": "yarn build && yarn test && yarn lint && yarn check"
-  },
-  "devDependencies": {
-    "@types/react": "^17.0.27",
-    "@types/react-dom": "^17.0.9",
-    "@types/styled-components": "^5.1.15",
-    "parcel": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "styled-components": "^5.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
-  "resolutions": {
-    "styled-components": "^5"
-  },
-  "engines": {
-    "parcel": "2.x"
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.5.0",
+    "vite": "^5.4.5"
   }
 }
